@@ -16,7 +16,9 @@ let () =
   let graph = from_file infile in
 
   (* Rewrite the graph that has been read. *)
-  let () = write_file outfile (clone_nodes graph) in
+  let int_graph = gmap graph int_of_string in
+  (*let () = write_file outfile (gmap (gmap graph (fun x -> (int_of_string x)+1)) string_of_int) in*)
+  let () = write_file outfile (gmap (add_arc int_graph 0 3 6) string_of_int) in
 
   ();;
 
