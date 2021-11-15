@@ -95,7 +95,22 @@ let from_file path =
   in
 
   let final_graph = loop 0 empty_graph in
-  
+
+
   close_in infile ;
-  final_graph
+  final_graph ;;
+
+let export path gr = 
+  let file = open_out path in 
+
+  fprintf file "digraph out {\n";
+  fprintf file "  rankdir=LR;\n";
+  fprintf file "  size=\"8,5\"\n";
+	fprintf file "  node [shape = circle];\n";
+
+  e_iter gr (fun id1 id2 lbl -> fprintf file "  %d -> %d [label = \"%s\"];\n" id1 id2 lbl);
+
+  fprintf file "}";
   
+  close_out file;
+  ();;
