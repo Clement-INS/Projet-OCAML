@@ -1,6 +1,18 @@
 open Gfile
 open Tools
 open Ford
+open Printf
+
+let print_bfs l =
+  let rec loop li =
+    match li with
+      | [] -> ()
+      | (a,b,c)::rest -> printf "(%i,%i,%i), " a b c;
+        loop rest
+  in
+    match l with
+      | None -> printf "no path between nodes"; ()
+      | Some (ls) -> (loop ls);;
 
 let () =
 
@@ -26,8 +38,10 @@ let () =
 
   (* Rewrite the graph that has been read. *)
   let int_graph = gmap graph int_of_string in
-  let () = write_file outfile (to_string (init_Ford int_graph)) in
-  ();;
+  (*let () = write_file outfile (to_string (init_Ford int_graph)) in*)
+  let test_bfs = bfs int_graph 1 2 in
+  print_bfs test_bfs;;
+
 
 
 
