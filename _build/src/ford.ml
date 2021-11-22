@@ -11,8 +11,8 @@ let bfs a b c =
             let rec loop l =
                 match l with
                     | [] -> None
-                    | (i, lb)::_ when i = id2 -> Some [(id1,id2,lb)]
-                    | (i,lb)::rest ->   if not (Hashtbl.mem h i) then
+                    | (i, lb)::_ when i = id2 && lb > 0 -> Some [(id1,id2,lb)]
+                    | (i,lb)::rest ->   if not (Hashtbl.mem h i) && lb > 0 then
                                             let l1 = help gr i id2 in
                                             match l1 with
                                                 | None -> loop rest
@@ -27,7 +27,15 @@ let bfs a b c =
     in
 help a b c;;
 
-(*let graph_ecart gr l =
-    let g = clone_nodes gr in
-    e_iter gr (fun i1 i2 lb =
-                match L)*)
+let rec find_flow_update l =
+    match l with
+        | None -> 0
+        | Some [] -> 0
+        | Some ((_,_,x)::rest) ->   let result = find_flow_update (Some rest) in
+                                    if result < x && result > 0 then result else x;;
+
+let rec graph_ecart gr l x =
+    match l with
+        | [] -> gr
+        | (i1,i2,lb)::rest -> graph_ecart (add_arc (add_arc gr i1 i2 (-x)) i2 i1 x) rest x;;
+        (**)
