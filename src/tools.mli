@@ -8,3 +8,5 @@ val gmap: 'a graph -> ('a -> 'b) -> 'b graph
 
 (** Create an edge between two nodes with value x if it doesn't exist or add x to its label *)
 val add_arc: int graph -> id -> id -> int -> int graph
+
+
