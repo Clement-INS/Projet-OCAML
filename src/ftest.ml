@@ -6,13 +6,13 @@ open Printf
 let print_bfs l =
   let rec loop li =
     match li with
-      | [] -> ()
-      | (a,b,c)::rest -> printf "(%i,%i,%i), \n" a b c;
-        loop rest
+    | [] -> ()
+    | (a,b,c)::rest -> printf "(%i,%i,%i), \n" a b c;
+      loop rest
   in
-    match l with
-      | None -> printf "no path between nodes\n"; ()
-      | Some (ls) -> (loop ls);;
+  match l with
+  | None -> printf "no path between nodes\n"; ()
+  | Some (ls) -> (loop ls);;
 
 let () =
 
@@ -39,24 +39,27 @@ let () =
 
   (* Open file *)
   let graph = from_file infile in
-  
-  (* Rewrite the graph that has been read. *)
-  let int_graph = gmap graph int_of_string in
-  
-  (*let () = write_file outfile (to_string (init_Ford int_graph)) in*)
-  let test_bfs = bfs int_graph source dest in
-  print_bfs test_bfs;
 
-  let l =
-    match test_bfs with
-      | None -> []
-      | Some l1 -> l1
-  in
+  (**
+     (* Rewrite the graph that has been read. *)
+     let int_graph = gmap graph int_of_string in
 
-  let graph_ecart = graph_ecart_update int_graph l (find_flow_update test_bfs) in
-  let flow_graph = convert_graph_ecart_flow int_graph graph_ecart in
-  let a = write_file outfile (to_string_flow_graph flow_graph) in
-  let () = export outfile (to_string_flow_graph flow_graph) in
+     (*let () = write_file outfile (to_string (init_Ford int_graph)) in*)
+     let test_bfs = bfs int_graph source dest in
+     print_bfs test_bfs;
+
+
+     let graph_ecart = graph_ecart_update int_graph test_bfs (find_flow_update test_bfs) in
+     let flow_graph = convert_graph_ecart_flow int_graph graph_ecart in
+     let flow_max = max_flow flow_graph source in
+     let () = write_file outfile (to_string_flow_graph flow_graph) in
+     let () = export outfile (to_string_flow_graph flow_graph) in
+     Printf.printf "Flot maximal : %i\n" flow_max;*)
+
+  let (res,flow_max) = algo_ford graph source dest in
+  Printf.printf "Max flow: %i\n" flow_max;
+  let () = export outfile res in
+
   ();;
 
 
