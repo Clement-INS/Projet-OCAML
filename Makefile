@@ -1,10 +1,12 @@
 
 build:
 	@echo "\n==== COMPILING ====\n"
+	ocamlbuild atest.native
 	ocamlbuild ftest.native
 
 format:
-	ocp-indent --inplace src/*
+	ocp-indent --inplace src/ford/*
+	ocp-indent --inplace src/argent/*
 
 edit:
 	code . -n
@@ -18,3 +20,4 @@ demo: build
 clean:
 	-rm -rf _build/
 	-rm ftest.native
+	-rm atest.native

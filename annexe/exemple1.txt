@@ -1,0 +1,4 @@
+John 40 1
+Kate 10 2
+Ann 10 3
+Orianne 15 4
