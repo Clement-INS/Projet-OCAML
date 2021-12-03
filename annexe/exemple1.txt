@@ -1,4 +1,4 @@
-John 40 1
-Kate 10 2
-Ann 10 3
-Orianne 15 4
+John 4000 1
+Kate 1000 2
+Ann 1000 3
+Orianne 1500 4

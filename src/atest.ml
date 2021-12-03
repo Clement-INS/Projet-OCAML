@@ -41,9 +41,6 @@ let () =
   let list = from_file_money infile in
   let graph = gmap (ford_initial_graph list) string_of_int in 
   let dst = dest list in
-  let int_graph = gmap graph int_of_string in
-  let l = bfs int_graph 0 dst in
-  print_bfs l;
   let (res,flow_max) = algo_ford graph 0 dst in
   Printf.printf "Max flow: %i\n" flow_max;
   let () = export outfile res in
