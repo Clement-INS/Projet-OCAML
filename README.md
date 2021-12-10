@@ -1,5 +1,5 @@
 Clément VIGAND
-Orianne BERRY
+Oriane BERRY
 
 Pour compiler:
     make
